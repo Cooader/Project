@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furni - Furniture Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #3d594e,#3d594e);
+            color: white;
+            min-height: 60vh;
+            position: relative;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a:hover {
+            color: #ffa500;
+        }
+
+        .nav-menu .active {
+            color: #ffa500;
+            border-bottom: 2px solid #ffa500;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-icons a:hover {
+            color: #ffa500;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 5% 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        /* Products Section */
+        .products-section {
+            background: #f5f5f5;
+            padding: 4rem 5% 2rem;
+            min-height: 40vh;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #5a7a5a;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 1.5rem 3%;
+            }
+            
+            .nav-menu {
+                gap: 2rem;
+            }
+            
+            .hero {
+                padding: 3rem 3% 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .products-section {
+                padding: 3rem 3% 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: #3d594e;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 0;
+            }
+
+            .navbar {
+                padding: 1rem 3%;
+                flex-wrap: wrap;
+            }
+
+            .nav-icons {
+                order: 3;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 2rem 3%;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .products-section {
+                padding: 2rem 3%;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .navbar {
+                padding: 1rem 4%;
+            }
+
+            .nav-menu {
+                top: 70px;
+                padding: 1.5rem 0;
+            }
+
+            .hero {
+                padding: 1.5rem 4%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .products-section {
+                padding: 2rem 4%;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            .product-info {
+                padding: 1rem;
+            }
+
+            .product-title {
+                font-size: 1.1rem;
+            }
+
+            .product-price {
+                font-size: 1rem;
+            }
+
+            .nav-icons {
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .nav-icons a {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar {
+                padding: 0.8rem 3%;
+            }
+
+            .hero {
+                padding: 1rem 3%;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .products-section {
+                padding: 1.5rem 3%;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+        }
+
+        /* Custom furniture-specific styling */
+        .green-chair {
+            background: linear-gradient(45deg, #7a9a5a, #8faf6f);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .beige-chair {
+            background: linear-gradient(45deg, #d4c4a8, #e6d6ba);
+            border-radius: 10px;
+        }
+
+        .gray-chair {
+            background: linear-gradient(45deg, #a8a8a8, #c0c0c0);
+            border-radius: 10px;
+        }
+
+        .chair-design {
+            width: 120px;
+            height: 140px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .chair-back {
+            width: 80px;
+            height: 100px;
+            border-radius: 10px;
+            margin: 0 auto 10px;
+        }
+
+        .chair-seat {
+            width: 100px;
+            height: 60px;
+            border-radius: 8px;
+            margin: 0 auto;
+        }
+
+        .chair-legs {
+            display: flex;
+            justify-content: space-between;
+            width: 100px;
+            margin: 5px auto 0;
+        }
+
+        .leg {
+            width: 6px;
+            height: 40px;
+            background: #8B4513;
+            border-radius: 3px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(#3d594e);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            background-color: #3d594e;
+            backdrop-filter: blur(10px);
+            transform: translateY(-2px);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-icons a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icons a:hover {
+            background-color: #3d594e;
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #3d594e);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Styles */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                position: relative;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                background: #3d594e;
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                z-index: 1000;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+
+            .nav-menu li a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+                display: block;
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .nav-icons {
+                gap: 0.5rem;
+            }
+
+            .nav-icons a {
+                font-size: 1.2rem;
+                padding: 0.3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Tablet Styles */
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .nav-menu li a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Small Mobile Styles */
+        @media screen and (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-menu li a {
+                font-size: 1rem;
+                width: 90%;
+            }
+        }
+
+        /* Animation for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add overlay when menu is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+     <header class="header">
+        <nav class="navbar">
+            <div class="logo">Furni.</div>
+            <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="About.html">About us</a></li>
+             
+                <li><a href="contact.html">Contact us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#profile" title="Profile">👤</a>
+                <a href="#cart" title="Cart">🛒</a>
+            </div>
+        </nav>
+        <div class="hero">
+            <h1>Shop</h1>
+        </div>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            const overlay = document.getElementById('overlay');
+            
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            const overlay = document.getElementById('overlay');
+            
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+        });
+
+        // Handle escape key to close menu
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMenu();
+            }
+        });
+    </script>
+    <!-- <header class="header">
+        <nav class="navbar">
+            <div class="logo">Furni.</div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#shop" class="active">Shop</a></li>
+                <li><a href="#about">About us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#profile">👤</a>
+                <a href="#cart">🛒</a>
+            </div>
+        </nav> -->
+        
+        <!-- <div class="hero">
+            <h1>Shop</h1>
+        </div>
+    </header> -->
+
+    <section class="products-section">
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Modern Green Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Modern Green Chair</div>
+                    <div class="product-price">$299</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Swivel Comfort Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Swivel Comfort Chair</div>
+                    <div class="product-price">$399</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lounge Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lounge Chair</div>
+                    <div class="product-price">$459</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Dining Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Dining Chair</div>
+                    <div class="product-price">$199</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/jpeg;base64,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" alt="Lounge Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lounge Chair</div>
+                    <div class="product-price">$459</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lounge Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lounge Chair</div>
+                    <div class="product-price">$459</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/jpeg;base64,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" alt="Lounge Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lounge Chair</div>
+                    <div class="product-price">$459</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/jpeg;base64,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" alt="Lounge Chair">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Lounge Chair</div>
+                    <div class="product-price">$459</div>
+                </div>
+            </div>
+
+          
+        </div>
+    </section>
+</body>
+</html>
